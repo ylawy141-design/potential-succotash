@@ -1,0 +1,23 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# ضع الكود الخاص بك هنا (الدوال أو العمليات الحسابية)
+def my_logic(input_data):
+    # مثال: افترض أن الكود الخاص بك يقوم بمعالجة نص
+    result = f"تمت معالجة: {input_data}" 
+    return result
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/process', methods=['POST'])
+def process():
+    user_input = request.form.get('user_data')
+    # استدعاء منطق الكود الخاص بك
+    output = my_logic(user_input)
+    return render_template('index.html', result=output)
+
+if __name__ == '__main__':
+    app.run(debug=True)
